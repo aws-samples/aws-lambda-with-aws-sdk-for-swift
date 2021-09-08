@@ -19,7 +19,7 @@ To deploy this application, you need an AWS account and the following tools on y
 
 If you are building this sample on a Mac and have Xcode 12.5+ installed, you do not need to install Swift 5.4 as you already have it.
 
-When you configure the AWS CLI, use credentials for a user with permissions to create, update, and delete AWS CloudFormation, Amazon S3, AWS Lambda, Amazon DynamoDB, and Amazon Elastic Container Registry resources. The AWS CDK will use these credentials to create the resources used in this sample in your AWS account.
+When you configure the AWS CLI, use credentials for a user with permissions to create, update, and delete AWS CloudFormation, AWS Identity and Access Management (IAM), Amazon S3, AWS Lambda, Amazon DynamoDB, and Amazon Elastic Container Registry resources. The AWS CDK will use these credentials to create the resources used in this sample in your AWS account.
 
 
 ## Clone this repository
