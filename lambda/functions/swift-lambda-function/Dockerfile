@@ -1,5 +1,5 @@
 # the image used to compile our Swift application
-FROM swift:5.4.2-amazonlinux2 as builder
+FROM swift:5.5.0-amazonlinux2 as builder
 
 ARG TARGET_NAME
 
