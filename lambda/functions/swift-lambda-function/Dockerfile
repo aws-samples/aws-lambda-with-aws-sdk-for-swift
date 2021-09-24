@@ -10,7 +10,7 @@ RUN mkdir -p /Tests/$TARGET_NAME/
 ADD /Sources/ ./Sources/
 ADD /Tests/ ./Tests/
 COPY Package.swift .
-RUN cd /build-lambda && swift build -c release
+RUN cd /build-lambda && swift package clean && swift build -c release
 
 # the image we will deplpoy to AWS Lambda
 FROM public.ecr.aws/lambda/provided:al2

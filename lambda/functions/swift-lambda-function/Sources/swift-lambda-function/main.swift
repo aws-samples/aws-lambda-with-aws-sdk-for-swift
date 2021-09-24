@@ -5,7 +5,7 @@
 import Foundation
 import AWSLambdaRuntime
 import AWSLambdaEvents
-import DynamoDB
+import AWSDynamoDB
 
 // define the structure for our function output
 // inherit from Codable so it can be translated to json
