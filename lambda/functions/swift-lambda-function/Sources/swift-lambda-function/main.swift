@@ -23,8 +23,7 @@ enum FunctionError: Error {
 let region = try getEnvVariable(name: "REGION")
 
 // create a client to interact with DynamoDB
-let config = try! DynamoDbClient.DynamoDbClientConfiguration(region: region)
-let client = DynamoDbClient(config: config)
+let client = try DynamoDbClient(region: region)
 
 // The Lambda.run method is invoked by the Lambda service
 // The function's event parameter contains the event triggered from S3
