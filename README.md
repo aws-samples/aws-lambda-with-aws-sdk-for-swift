@@ -27,7 +27,7 @@ When you configure the AWS CLI, use credentials for a user with permissions to c
 ## Clone this repository
 
 ```bash
-$ git clone git@github.com:aws-samples/aws-lambda-with-aws-sdk-for-swift.git
+$ git clone https://github.com/aws-samples/aws-lambda-with-aws-sdk-for-swift.git
 ```
 
 Swich to the application folder and use the Node Package Manager (npm) to install the required AWS CDK modules.
