@@ -11,11 +11,13 @@ To illustrate these capabilities, we have a simple use case. The application mon
 
 To deploy this application, you need an AWS account and the following tools on your development machine:
 
-* [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) (2.1.32) the AWS CLI is used to configure the AWS credentials on your development machine.
+* [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) (^2.1.32) the AWS CLI is used to configure the AWS credentials on your development machine.
 * [Node.js](https://nodejs.org/en/download/current/) (^16.8.0) with NPM (^7.19.1)
 * [Typescript](https://www.npmjs.com/package/typescript) (^4.2.4) Typescript is used with the AWS CDK.
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) (^3.5.2) The AWS CDK uses Docker to compile the Swift Lambda functions into a Docker image.
 * [Swift](https://swift.org/getting-started/#installing-swift) (5.5)
+
+If you are building this sample on a **Mac with Apple Silicon**, make sure you [configure Docker Desktop](https://docs.docker.com/desktop/mac/apple-silicon/) for this chip architecture.
 
 If you are building this sample on a Mac and have Xcode 13.0 installed, you do not need to install Swift 5.5 as you already have it.
 
