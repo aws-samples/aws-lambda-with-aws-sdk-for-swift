@@ -1,6 +1,8 @@
 # Building an AWS Lambda Function using the AWS SDK for Swift
 
-This sample application demonstrates using the AWS SDK for Swift in a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the AWS Cloud Development Kit (AWS CDK) to deploy the image and create the Lambda function in AWS.
+This sample application demonstrates using the **AWS SDK for Swift** in a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the AWS Cloud Development Kit (AWS CDK) to deploy the image and create the Lambda function in AWS.
+
+The sample supports deploying your function as an **x86** based container or an **ARM** based container.  The latter leverages Lambda's new capability to run ARM based functions. The default configuration for the example is x86.  If you are building this sample on an ARM machine, such as an Apple M1, make the specified tweaks to the app as specified below.
 
 ## The Use Case
 To illustrate these capabilities, we have a simple use case. The application monitors a Amazon Simple Storage Service (Amazon S3) bucket for new files.  When a user uploads a new file, Amazon S3 sends an event notification to the Lambda function.  The function retrieves metadata about the file and saves it to Amazon DynamoDB.  We will now explore the end-to-end tooling used to develop this application with Swift on AWS.
@@ -15,11 +17,9 @@ To deploy this application, you need an AWS account and the following tools on y
 * [Node.js](https://nodejs.org/en/download/current/) (^16.8.0) with NPM (^7.19.1)
 * [Typescript](https://www.npmjs.com/package/typescript) (^4.2.4) Typescript is used with the AWS CDK.
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) (^3.5.2) The AWS CDK uses Docker to compile the Swift Lambda functions into a Docker image.
-* [Swift](https://swift.org/getting-started/#installing-swift) (5.5)
+* [Swift](https://swift.org/getting-started/#installing-swift) (^5.4)
 
-If you are building this sample on a **Mac with Apple Silicon**, make sure you [configure Docker Desktop](https://docs.docker.com/desktop/mac/apple-silicon/) for this chip architecture.
-
-If you are building this sample on a Mac and have Xcode 13.0 installed, you do not need to install Swift 5.5 as you already have it.
+If you are building this sample on a Mac and have Xcode installed, you do not need to install Swift, as you already have it.
 
 When you configure the AWS CLI, use credentials for a user with permissions to create, update, and delete AWS CloudFormation, AWS Identity and Access Management (IAM), Amazon S3, AWS Lambda, Amazon DynamoDB, and Amazon Elastic Container Registry resources. The AWS CDK will use these credentials to create the resources used in this sample in your AWS account.
 
@@ -37,7 +37,77 @@ $ cd aws-lambda-with-aws-sdk-for-swift
 $ npm install
 ```
 
+## Configure the function architecture
+
+If you are running this sample on an ARM machine, such as an Apple M1, you must change the first line of the Lambda function's Dockerfile.  You must also make a change to the CDK stack file.
+
+The Docker file is located at:
+
+```
+aws-lambda-with-aws-sdk-for-swift/lambda/functions/swift-lambda-function/Dockerfile
+```
+
+Open this file and ensure the first line reflects the architecture of the device you are using to build the sample:
+
+**ARM**
+```
+FROM swiftarm/swift:5.4.1-amazonlinux-2 as builder
+```
+
+**x86**
+
+```
+FROM swift:5.5.0-amazonlinux2 as builder
+```
+
+The CDK stack file is located at:
+
+```
+aws-lambda-with-aws-sdk-for-swift/lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts
+```
+
+Open this file, locate the code that defines the Lambda function, and change the architecture paramater.
+
+**ARM**
+
+```typescript
+const lambdaFunction = new Lambda.DockerImageFunction(this, "SwiftLambdaFunction", {
+    code: Lambda.DockerImageCode.fromImageAsset(dockerfile, {
+    buildArgs:{
+        "TARGET_NAME": 'swift-lambda-function'
+    }
+    }),
+    memorySize:1024,
+    timeout:cdk.Duration.seconds(30),
+    architecture: Lambda.Architecture.ARM_64,
+    environment: {
+    "TABLE_NAME": table.tableName,
+    "REGION": this.region
+    }
+});
+```
+
+**x86**
+
+```typescript
+const lambdaFunction = new Lambda.DockerImageFunction(this, "SwiftLambdaFunction", {
+    code: Lambda.DockerImageCode.fromImageAsset(dockerfile, {
+    buildArgs:{
+        "TARGET_NAME": 'swift-lambda-function'
+    }
+    }),
+    memorySize:1024,
+    timeout:cdk.Duration.seconds(30),
+    architecture: Lambda.Architecture.X86_64,
+    environment: {
+    "TABLE_NAME": table.tableName,
+    "REGION": this.region
+    }
+});
+```
+
 ## Deploy the application to AWS
+
 If this is the first time you have used the AWS CDK in your AWS account, you must first *bootstrap* your account.
 
 From the **root** folder of your project execute the following command:
