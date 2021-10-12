@@ -2,7 +2,7 @@
 
 This sample application demonstrates using the **AWS SDK for Swift** in a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the AWS Cloud Development Kit (AWS CDK) to deploy the image and create the Lambda function in AWS.
 
-The sample supports deploying your function as an **x86** based container or an **ARM** based container.  The latter leverages Lambda's new capability to run ARM based functions. The default configuration for the example is x86.  If you are building this sample on an ARM machine, such as an Apple M1, make the specified tweaks to the app as specified below.
+The sample supports deploying your function as an **x86** based container or an **ARM** based container.  The latter leverages Lambda's new capability to run ARM based functions. If you are building this sample on an ARM machine, such as an Apple M1, make the specified tweaks to the app as specified below. The default configuration for the example is x86 and requires no changes.
 
 ## The Use Case
 To illustrate these capabilities, we have a simple use case. The application monitors a Amazon Simple Storage Service (Amazon S3) bucket for new files.  When a user uploads a new file, Amazon S3 sends an event notification to the Lambda function.  The function retrieves metadata about the file and saves it to Amazon DynamoDB.  We will now explore the end-to-end tooling used to develop this application with Swift on AWS.
