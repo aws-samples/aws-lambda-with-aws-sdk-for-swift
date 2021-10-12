@@ -1,5 +1,5 @@
 # the image used to compile our Swift Lambda Function
-FROM --platform=linux/amd64 swift:5.5.0-amazonlinux2 as builder
+FROM swift:5.5.0-amazonlinux2 as builder
 
 ARG TARGET_NAME
 
@@ -13,7 +13,7 @@ COPY Package.swift .
 RUN cd /build-lambda && swift package clean && swift build -c release
 
 # the image we will deplpoy to AWS Lambda
-FROM --platform=linux/amd64 public.ecr.aws/lambda/provided:al2
+FROM public.ecr.aws/lambda/provided:al2
 
 ARG TARGET_NAME
 
