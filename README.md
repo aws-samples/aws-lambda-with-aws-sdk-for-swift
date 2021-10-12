@@ -1,4 +1,4 @@
-# Building an AWS Lambda Function using the AWS SDK for Swift
+# Swift on AWS: Building your backend app with the AWS SDK for Swift
 
 This sample application demonstrates using the **AWS SDK for Swift** in a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the AWS Cloud Development Kit (AWS CDK) to deploy the image and create the Lambda function in AWS.
 
