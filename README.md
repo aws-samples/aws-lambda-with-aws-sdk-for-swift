@@ -57,7 +57,7 @@ FROM swiftarm/swift:5.4.1-amazonlinux-2 as builder
 **x86**
 
 ```
-FROM swift:5.5.0-amazonlinux2 as builder
+FROM swift:5.4.3-amazonlinux2 as builder
 ```
 
 The CDK stack file is located at:
@@ -66,7 +66,7 @@ The CDK stack file is located at:
 aws-lambda-with-aws-sdk-for-swift/lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts
 ```
 
-Open this file, locate the code that defines the Lambda function, and change the architecture paramater.
+Open this file, locate the code that defines the Lambda function, and change the **architecture** parameter.
 
 **ARM**
 
