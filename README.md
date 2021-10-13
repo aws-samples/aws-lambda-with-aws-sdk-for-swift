@@ -17,9 +17,6 @@ To deploy this application, you need an AWS account and the following tools on y
 * [Node.js](https://nodejs.org/en/download/current/) (^16.8.0) with NPM (^7.19.1)
 * [Typescript](https://www.npmjs.com/package/typescript) (^4.2.4) Typescript is used with the AWS CDK.
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) (^3.5.2) The AWS CDK uses Docker to compile the Swift Lambda functions into a Docker image.
-* [Swift](https://swift.org/getting-started/#installing-swift) (^5.4)
-
-If you are building this sample on a Mac and have Xcode installed, you do not need to install Swift, as you already have it.
 
 When you configure the AWS CLI, use credentials for a user with permissions to create, update, and delete AWS CloudFormation, AWS Identity and Access Management (IAM), Amazon S3, AWS Lambda, Amazon DynamoDB, and Amazon Elastic Container Registry resources. The AWS CDK will use these credentials to create the resources used in this sample in your AWS account.
 
