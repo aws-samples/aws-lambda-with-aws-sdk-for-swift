@@ -15,7 +15,6 @@ To deploy this application, you need an AWS account and the following tools on y
 
 * [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) (^2.1.32) the AWS CLI is used to configure the AWS credentials on your development machine.
 * [Node.js](https://nodejs.org/en/download/current/) (^16.8.0) with NPM (^7.19.1)
-* [Typescript](https://www.npmjs.com/package/typescript) (^4.2.4) Typescript is used with the AWS CDK.
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) (^3.5.2) The AWS CDK uses Docker to compile the Swift Lambda functions into a Docker image.
 
 When you configure the AWS CLI, use credentials for a user with permissions to create, update, and delete AWS CloudFormation, AWS Identity and Access Management (IAM), Amazon S3, AWS Lambda, Amazon DynamoDB, and Amazon Elastic Container Registry resources. The AWS CDK will use these credentials to create the resources used in this sample in your AWS account.
@@ -110,13 +109,13 @@ If this is the first time you have used the AWS CDK in your AWS account, you mus
 From the **root** folder of your project execute the following command:
 
 ```bash
-$ npx cdk bootstrap
+$ npx aws-cdk bootstrap
 ```
 
 Now you can deploy the application stack.  The deployment step uses Docker on your local machine to build a Docker image from your Lambda code. It then generates a AWS CloudFormation template which defines the Amazon S3 bucket, DynamoDB table, and Lambda function, and deploys it to your account. This process can take several minutes.
 
 ```bash
-$ npx cdk deploy
+$ npx aws-cdk deploy
 ```
 
 When the deployment has completed, it will ouput the name of the Amazon S3 bucket, DynamoDB table, and Lambda function that was created. For example:
@@ -144,5 +143,5 @@ Once you finish using the application, you can remove all the resources created 
 *Note - you must first empty the Amazon S3 Bucket before you run the destroy command otherwise it results in an error. The AWS CDK does not remove buckets that contain objects.*
 
 ```bash
-$ npx cdk destroy
+$ npx aws-cdk destroy
 ```
