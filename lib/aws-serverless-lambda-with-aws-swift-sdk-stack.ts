@@ -1,15 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
+import { Construct } from 'constructs';
+import * as cdk from 'aws-cdk-lib';
 import * as path from "path"
-import * as cdk from '@aws-cdk/core';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
-import * as Lambda from '@aws-cdk/aws-lambda'
-import * as s3 from '@aws-cdk/aws-s3'
-import * as s3n from '@aws-cdk/aws-s3-notifications';
+import { aws_dynamodb as dynamodb } from 'aws-cdk-lib'
+import { aws_lambda as Lambda } from 'aws-cdk-lib';
+import { aws_s3 as s3 } from 'aws-cdk-lib'
+import { aws_s3_notifications as s3n } from 'aws-cdk-lib';
 
 export class AwsServerlessLambdaWithAwsSwiftSdkStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     //create the DynamoDB table

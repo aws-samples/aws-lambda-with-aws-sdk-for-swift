@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import { AwsServerlessLambdaWithAwsSwiftSdkStack } from '../lib/aws-serverless-lambda-with-aws-swift-sdk-stack';
 
 const app = new cdk.App();
