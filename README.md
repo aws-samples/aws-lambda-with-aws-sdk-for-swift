@@ -2,8 +2,6 @@
 
 This sample application demonstrates using the **AWS SDK for Swift** in a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the AWS Cloud Development Kit (AWS CDK) to deploy the image and create the Lambda function in AWS.
 
-The sample supports deploying your function as an **x86** based container or an **ARM** based container.  The latter leverages Lambda's capability to run ARM based functions. If you are building this sample on an ARM machine, such as an Apple M1, make the specified tweaks to the app as specified below. The default configuration for the example is x86 and requires no changes.
-
 ## The Use Case
 To illustrate these capabilities, we have a simple use case. The application monitors an Amazon Simple Storage Service (Amazon S3) bucket for new files.  When a user uploads a new file, Amazon S3 sends an event notification to the Lambda function.  The function retrieves metadata about the file and saves it to Amazon DynamoDB.  We will now explore the end-to-end tooling used to develop this application with Swift on AWS.
 
@@ -28,53 +26,6 @@ Swich to the application folder and use the Node Package Manager (npm) to instal
 ```bash
 $ cd aws-lambda-with-aws-sdk-for-swift
 $ npm install
-```
-
-## Configure the function architecture
-
-If you are running this sample on an ARM machine, such as an Apple M1, you must make a change to the CDK stack file.
-
-The CDK stack file is located at:
-
-[aws-lambda-with-aws-sdk-for-swift/lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts](./lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts)
-
-
-Open this file, locate the code that defines the Lambda function, and change the **architecture** parameter.
-
-**ARM**
-
-```typescript
-const lambdaFunction = new Lambda.DockerImageFunction(this, "SwiftLambdaFunction", {
-    code: Lambda.DockerImageCode.fromImageAsset(dockerfile, {
-    buildArgs:{
-        "TARGET_NAME": 'swift-lambda-function'
-    }
-    }),
-    memorySize:1024,
-    timeout:cdk.Duration.seconds(30),
-    architecture: Lambda.Architecture.ARM_64,
-    environment: {
-    "TABLE_NAME": table.tableName
-    }
-});
-```
-
-**x86**
-
-```typescript
-const lambdaFunction = new Lambda.DockerImageFunction(this, "SwiftLambdaFunction", {
-    code: Lambda.DockerImageCode.fromImageAsset(dockerfile, {
-    buildArgs:{
-        "TARGET_NAME": 'swift-lambda-function'
-    }
-    }),
-    memorySize:1024,
-    timeout:cdk.Duration.seconds(30),
-    architecture: Lambda.Architecture.X86_64,
-    environment: {
-    "TABLE_NAME": table.tableName
-    }
-});
 ```
 
 ## Deploy the application to AWS
