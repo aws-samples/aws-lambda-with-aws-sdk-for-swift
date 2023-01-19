@@ -52,8 +52,7 @@ export class AwsServerlessLambdaWithAwsSwiftSdkStack extends cdk.Stack {
       timeout:cdk.Duration.seconds(30),
       architecture: Lambda.Architecture.X86_64,
       environment: {
-        "TABLE_NAME": table.tableName,
-        "REGION": this.region
+        "TABLE_NAME": table.tableName
       }
     });
 

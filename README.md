@@ -2,7 +2,7 @@
 
 This sample application demonstrates using the **AWS SDK for Swift** in a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the AWS Cloud Development Kit (AWS CDK) to deploy the image and create the Lambda function in AWS.
 
-The sample supports deploying your function as an **x86** based container or an **ARM** based container.  The latter leverages Lambda's new capability to run ARM based functions. If you are building this sample on an ARM machine, such as an Apple M1, make the specified tweaks to the app as specified below. The default configuration for the example is x86 and requires no changes.
+The sample supports deploying your function as an **x86** based container or an **ARM** based container.  The latter leverages Lambda's capability to run ARM based functions. If you are building this sample on an ARM machine, such as an Apple M1, make the specified tweaks to the app as specified below. The default configuration for the example is x86 and requires no changes.
 
 ## The Use Case
 To illustrate these capabilities, we have a simple use case. The application monitors an Amazon Simple Storage Service (Amazon S3) bucket for new files.  When a user uploads a new file, Amazon S3 sends an event notification to the Lambda function.  The function retrieves metadata about the file and saves it to Amazon DynamoDB.  We will now explore the end-to-end tooling used to develop this application with Swift on AWS.
@@ -11,14 +11,11 @@ To illustrate these capabilities, we have a simple use case. The application mon
 
 ## Prerequisites
 
-To deploy this application, you need an AWS account and the following tools on your development machine:
+To deploy this application, you need an AWS account and the following tools on your development machine. While it may work with alternative versions, we recommend you deploy the specified minimum version.
 
-* [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) (^2.1.32) the AWS CLI is used to configure the AWS credentials on your development machine.
-* [Node.js](https://nodejs.org/en/download/current/) (^16.8.0) with NPM (^7.19.1)
-* [Docker Desktop](https://www.docker.com/products/docker-desktop) (^3.5.2) The AWS CDK uses Docker to compile the Swift Lambda functions into a Docker image.
-
-When you configure the AWS CLI, use credentials for a user with permissions to create, update, and delete AWS CloudFormation, AWS Identity and Access Management (IAM), Amazon S3, AWS Lambda, Amazon DynamoDB, and Amazon Elastic Container Registry resources. The AWS CDK will use these credentials to create the resources used in this sample in your AWS account.
-
+* [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) (^2.4.19) the AWS CLI is used to configure the AWS credentials on your development machine.
+* [Node.js](https://nodejs.org/en/download/current/) (^16.8.1) with NPM (^8.12.2)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) (^4.15) The AWS CDK uses Docker to compile the Swift Lambda functions into a Docker image.
 
 ## Clone this repository
 
@@ -35,32 +32,12 @@ $ npm install
 
 ## Configure the function architecture
 
-If you are running this sample on an ARM machine, such as an Apple M1, you must change the first line of the Lambda function's Dockerfile.  You must also make a change to the CDK stack file.
-
-The Docker file is located at:
-
-```
-aws-lambda-with-aws-sdk-for-swift/lambda/functions/swift-lambda-function/Dockerfile
-```
-
-Open this file and ensure the first line reflects the architecture of the device you are using to build the sample:
-
-**ARM**
-```
-FROM swiftarm/swift:5.4.1-amazonlinux-2 as builder
-```
-
-**x86**
-
-```
-FROM swift:5.4.3-amazonlinux2 as builder
-```
+If you are running this sample on an ARM machine, such as an Apple M1, you must make a change to the CDK stack file.
 
 The CDK stack file is located at:
 
-```
-aws-lambda-with-aws-sdk-for-swift/lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts
-```
+[aws-lambda-with-aws-sdk-for-swift/lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts](./lib/aws-serverless-lambda-with-aws-swift-sdk-stack.ts)
+
 
 Open this file, locate the code that defines the Lambda function, and change the **architecture** parameter.
 
