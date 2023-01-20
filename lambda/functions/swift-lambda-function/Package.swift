@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swift-server/swift-aws-lambda-runtime", branch: "main"),
         .package(url: "https://github.com/swift-server/swift-aws-lambda-events", branch: "main"),
-        .package(url: "https://github.com/awslabs/aws-sdk-swift", from: "0.8.0")
+        .package(url: "https://github.com/awslabs/aws-sdk-swift", from: "0.9.0")
     ],
     targets: [
         .executableTarget(
