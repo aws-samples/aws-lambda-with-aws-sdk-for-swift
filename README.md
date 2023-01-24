@@ -1,7 +1,9 @@
 # Swift on AWS: Building your backend app with the AWS SDK for Swift
 ![Image description](images/banner.png)
 
-This sample application demonstrates using the [AWS SDK for Swift](https://aws.amazon.com/sdk-for-swift/) and [Swift AWS Lambda runtime](https://github.com/swift-server/swift-aws-lambda-runtime) to build a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/) to deploy the image and create the Lambda function in AWS.
+This sample application demonstrates using the [AWS SDK for Swift](https://aws.amazon.com/sdk-for-swift/) and [Swift AWS Lambda Runtime](https://github.com/swift-server/swift-aws-lambda-runtime) to build a AWS Lambda function. It uses Docker to compile and package the function into a Docker image. It then uses the [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/) to deploy the image and create the Lambda function in AWS.
+
+The sample implements Swift Concurrency (async / await) to allow for asynchronous calls to the AWS cloud resources.
 
 ## The Use Case
 To illustrate these capabilities, we have a simple event-driven use case. The application monitors an Amazon Simple Storage Service (Amazon S3) bucket for new files.  When a user uploads a new file, Amazon S3 sends an event notification to the Lambda function.  The function retrieves metadata about the file and saves it to Amazon DynamoDB.
