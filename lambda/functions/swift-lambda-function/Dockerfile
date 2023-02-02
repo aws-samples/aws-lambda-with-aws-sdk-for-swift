@@ -13,7 +13,7 @@ RUN mkdir -p /Tests/$TARGET_NAME/
 ADD /Sources/ ./Sources/
 ADD /Tests/ ./Tests/
 COPY Package.swift .
-RUN cd /build-lambda && swift package clean && swift build -c release
+RUN cd /build-lambda && swift package clean && swift build --static-swift-stdlib -c release
 
 # the image we will deplpoy to AWS Lambda
 FROM public.ecr.aws/lambda/provided:al2-x86_64
@@ -23,7 +23,6 @@ ARG TARGET_NAME
 RUN mkdir -p /var/task/
 RUN mkdir -p /var/runtime/
 COPY --from=builder /build-lambda/.build/release/$TARGET_NAME /var/task/lambdaExec
-COPY --from=builder /usr/lib/swift/linux/lib*so* /var/task/
 RUN chmod 755 /var/task/lambdaExec
 RUN ln -s /var/task/lambdaExec /var/runtime/bootstrap
 RUN chmod 755 /var/runtime/bootstrap
